@@ -27,6 +27,7 @@
 - [The Five Axes of next-state prediction](#the-five-axes-of-next-state-prediction)
 - [The landscape map](#the-landscape-map)
 - [The Next-State Ladder (L0–L5)](#the-next-state-ladder)
+- [Landmark figures](#landmark-figures)
 - [How to read every entry](#how-to-read-every-entry)
 - [**The collection**](#the-collection)
   - [Neuroscience & cognitive science](#neuroscience--cognitive-science)
@@ -134,6 +135,21 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
 - **Cond** (conditioning) — `observational` (no actions) · `interventional` (action-conditioned)
 - **Unc** (uncertainty) — `deterministic` · `softmax` · `gaussian` · `categorical` · `diffusion` · `energy`
 - **Obj** (objective) — `reconstruction` · `value-equivalent` · `contrastive` · `energy` · `likelihood`
+
+---
+
+## Landmark figures
+
+*Eight marquee systems, each with a representative figure from its paper or project page. On the [interactive site](https://chaoyue0307.github.io/awesome-next-state-prediction/), every one of the 49 cards also carries a schematic of its state turning into the next.*
+
+|  |  |
+|:--|:--|
+| [**Genie 3**](https://deepmind.google/blog/genie-3-a-new-frontier-for-world-models/) — real-time interactive worlds<br><img src="docs/assets/papers/genie3.jpg" width="400"> | [**DreamerV3**](https://www.nature.com/articles/s41586-025-08744-2) — one agent, 150+ tasks<br><img src="docs/assets/papers/dreamerv3.jpg" width="400"> |
+| [**MuZero**](https://arxiv.org/abs/1911.08265) — value-equivalent planning<br><img src="docs/assets/papers/muzero.jpg" width="400"> | [**DIAMOND**](https://arxiv.org/abs/2405.12399) — diffusion world model (animated)<br><img src="docs/assets/papers/diamond.gif" width="400"> |
+| [**GameNGen**](https://arxiv.org/abs/2408.14837) — the network *is* the game engine<br><img src="docs/assets/papers/gamengen.png" width="400"> | [**TD-MPC2**](https://arxiv.org/abs/2310.16828) — decoder-free latent control<br><img src="docs/assets/papers/tdmpc2.jpg" width="400"> |
+| [**Genie 2**](https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/) — 3D worlds from one image<br><img src="docs/assets/papers/genie2.jpg" width="400"> | [**World Models**](https://arxiv.org/abs/1803.10122) — the original VAE + RNN<br><img src="docs/assets/papers/world-models.svg" width="400"> |
+
+> *Figures are © their respective authors and labs, reproduced here at thumbnail scale for non-commercial, educational indexing, each linked to its source. If you are an author and would prefer your figure not appear, open an issue and it will be removed.*
 
 ---
 

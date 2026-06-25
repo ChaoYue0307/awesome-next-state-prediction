@@ -227,8 +227,11 @@
     r.forEach(w => {
       const g = GROUPS[w.group];
       const card = el("div", "card");
+      const thumbInner = w.img
+        ? `<img src="${w.img}" alt="${w.name} — figure © its authors" loading="lazy">`
+        : thumb(w);
       card.innerHTML =
-        `<div class="thumb">${thumb(w)}</div>
+        `<div class="thumb${w.img ? " has-img" : ""}">${thumbInner}</div>
          <div class="top">
            <span class="gdot" style="background:${g.color}"></span>
            <h3><a href="${w.url}" target="_blank" rel="noopener">${w.name}</a></h3>
