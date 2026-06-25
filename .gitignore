@@ -8,3 +8,6 @@ Thumbs.db
 # node (only if tooling is added later)
 node_modules/
 npm-debug.log*
+
+# local dev-preview config (not part of the published repo)
+.claude/
