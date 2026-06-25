@@ -1,0 +1,8 @@
+# Committed paper figures and generated SVG/figure assets are not source code.
+# Mark them vendored so they don't skew GitHub language statistics.
+docs/assets/papers/** linguist-vendored
+docs/assets/*.svg     linguist-vendored
+assets/*.svg          linguist-vendored
+*.png                 linguist-vendored
+*.jpg                 linguist-vendored
+*.gif                 linguist-vendored
