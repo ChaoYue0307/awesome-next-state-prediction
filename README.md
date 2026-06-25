@@ -9,7 +9,7 @@
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Website](https://img.shields.io/badge/website-live-7F77DD.svg)](https://chaoyue0307.github.io/awesome-next-state/)
+[![Website](https://img.shields.io/badge/website-live-7F77DD.svg)](https://chaoyue0307.github.io/awesome-next-state-prediction/)
 [![Works](https://img.shields.io/badge/works-49-1D9E75.svg)](#the-collection)
 
 *A living index of world models, organized by one question: **what does each system treat as "the next state"?***
@@ -19,7 +19,7 @@
 ---
 
 > [!NOTE]
-> This is not just a link dump. Every entry is tagged with **the next-state it predicts** — its state representation, whether it is action-conditioned, what space it predicts in, and how it carries uncertainty. The thesis below and the [Five Axes](#the-five-axes-of-next-state-prediction) are the lens; the [collection](#the-collection) is the evidence. **Explore it interactively → [chaoyue0307.github.io/awesome-next-state](https://chaoyue0307.github.io/awesome-next-state/)**
+> This is not just a link dump. Every entry is tagged with **the next-state it predicts** — its state representation, whether it is action-conditioned, what space it predicts in, and how it carries uncertainty. The thesis below and the [Five Axes](#the-five-axes-of-next-state-prediction) are the lens; the [collection](#the-collection) is the evidence. **Explore it interactively → [chaoyue0307.github.io/awesome-next-state-prediction](https://chaoyue0307.github.io/awesome-next-state-prediction/)**
 
 ## Contents
 
@@ -276,7 +276,7 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
 
 ## Comparison table
 
-The same works, side by side, on the [Five Axes](#the-five-axes-of-next-state-prediction). Sort this by any column on the **[interactive site](https://chaoyue0307.github.io/awesome-next-state/)**.
+The same works, side by side, on the [Five Axes](#the-five-axes-of-next-state-prediction). Sort this by any column on the **[interactive site](https://chaoyue0307.github.io/awesome-next-state-prediction/)**.
 
 | Work | Year | Group | Next-state representation | Space | Cond. | Uncertainty | Objective | Ladder |
 |------|:----:|-------|---------------------------|:-----:|:-----:|:-----------:|:---------:|:------:|
@@ -392,11 +392,11 @@ PRs very welcome — this is meant to be the *living* reference for next-state p
 ## Citation
 
 ```bibtex
-@misc{awesome-next-state,
+@misc{awesome-next-state-prediction,
   title        = {Awesome Next-State Prediction: A Curated Map of World Models},
   author       = {He, Chaoyue and contributors},
   year         = {2026},
-  howpublished = {\url{https://github.com/ChaoYue0307/awesome-next-state}}
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-next-state-prediction}}
 }
 ```
 
