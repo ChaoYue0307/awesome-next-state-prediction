@@ -119,6 +119,55 @@
     });
   })();
 
+  /* ---------- per-card "next-state" thumbnail ----------
+     A schematic glyph of the state representation (left, muted) being predicted
+     into its next state (right, group-colored). The arrow is coral when the
+     prediction is action-conditioned. This encodes the one thing the repo is about. */
+  function glyph(space, cx, hi, col) {
+    const m = "#3a434f", cy = 40;
+    if (space === "text") {
+      let s = ""; for (let i = 0; i < 4; i++) { const x = cx - 26 + i * 13, f = (hi && i === 3) ? col : m; s += `<rect x="${x}" y="${cy - 6}" width="10" height="12" rx="2" fill="${f}"/>`; } return s;
+    }
+    if (space === "token") {
+      let s = ""; for (let r = 0; r < 2; r++) for (let k = 0; k < 3; k++) { const x = cx - 15 + k * 11, y = cy - 10 + r * 11, f = (hi && r === 0 && k === 1) ? col : m; s += `<rect x="${x}" y="${y}" width="8.5" height="8.5" rx="1.5" fill="${f}"/>`; } return s;
+    }
+    if (space === "pixel") {
+      const x = cx - 25, y = cy - 17, c = hi ? col : m;
+      let s = `<rect x="${x}" y="${y}" width="50" height="34" rx="4" fill="#0d121a" stroke="${c}" stroke-width="1.5"/>`;
+      s += `<line x1="${x + 6}" y1="${cy + 5}" x2="${x + 44}" y2="${cy + 5}" stroke="${c}" stroke-width="1.1" opacity="0.7"/>`;
+      s += `<circle cx="${x + 13}" cy="${cy - 4}" r="3.5" fill="${hi ? col : m}"/>`;
+      if (hi) s += `<path d="M${x + 26} ${cy + 5} L${x + 34} ${cy - 4} L${x + 42} ${cy + 5} Z" fill="${col}" opacity="0.85"/>`;
+      return s;
+    }
+    if (space === "latent") {
+      return `<circle cx="${cx}" cy="${cy}" r="17" fill="none" stroke="${m}" stroke-width="1.3"/>`
+        + `<circle cx="${cx}" cy="${cy}" r="10.5" fill="none" stroke="${hi ? col : m}" stroke-width="1.3"/>`
+        + `<circle cx="${cx}" cy="${cy}" r="4.5" fill="${hi ? col : m}"/>`;
+    }
+    const n = [[cx - 16, cy - 6], [cx + 1, cy - 14], [cx + 15, cy + 2], [cx - 5, cy + 13]];
+    const L = (a, b) => `<line x1="${n[a][0]}" y1="${n[a][1]}" x2="${n[b][0]}" y2="${n[b][1]}" stroke="${m}" stroke-width="1" opacity="0.6"/>`;
+    let s = L(0, 1) + L(1, 2) + L(0, 2) + L(2, 3);
+    n.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${hi ? col : m}"/>`; });
+    return s;
+  }
+  function thumb(w) {
+    const col = GROUPS[w.group].color, act = w.cond === "act";
+    const arrowCol = act ? "#D85A30" : "#5a6473";
+    const tag = act
+      ? `<rect x="129" y="13" width="42" height="18" rx="9" fill="#1d1410" stroke="#993C1D"/><text x="150" y="26" text-anchor="middle" font-size="11" font-weight="600" fill="#F0997B" font-family="ui-monospace,Menlo,monospace">aₜ</text>`
+      : `<text x="150" y="26" text-anchor="middle" font-size="10" letter-spacing="0.5" fill="#5a6473">passive</text>`;
+    return `<svg viewBox="0 0 300 80" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="0" width="300" height="80" rx="10" fill="${col}" opacity="0.06"/>
+      ${glyph(w.space, 60, false, col)}
+      <line x1="106" y1="40" x2="188" y2="40" stroke="${arrowCol}" stroke-width="1.6"/>
+      <path d="M183 35 L191 40 L183 45 Z" fill="${arrowCol}"/>
+      ${tag}
+      ${glyph(w.space, 240, true, col)}
+      <text x="60" y="73" text-anchor="middle" font-size="9.5" fill="#6E7681">sₜ</text>
+      <text x="240" y="73" text-anchor="middle" font-size="9.5" font-weight="600" fill="${col}">sₜ₊₁</text>
+    </svg>`;
+  }
+
   /* ---------- collection: filters + cards ---------- */
   const state = { groups: new Set(), spaces: new Set(), cond: new Set(), q: "", sort: "year-desc" };
   const SPACES = ["text", "token", "pixel", "latent", "abstract"];
@@ -179,7 +228,8 @@
       const g = GROUPS[w.group];
       const card = el("div", "card");
       card.innerHTML =
-        `<div class="top">
+        `<div class="thumb">${thumb(w)}</div>
+         <div class="top">
            <span class="gdot" style="background:${g.color}"></span>
            <h3><a href="${w.url}" target="_blank" rel="noopener">${w.name}</a></h3>
            <span class="lvl">L${w.ladder}</span>

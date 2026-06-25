@@ -10,7 +10,7 @@
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Website](https://img.shields.io/badge/website-live-7F77DD.svg)](https://chaoyue0307.github.io/awesome-next-state/)
-[![Works](https://img.shields.io/badge/works-40+-1D9E75.svg)](#the-collection)
+[![Works](https://img.shields.io/badge/works-49-1D9E75.svg)](#the-collection)
 
 *A living index of world models, organized by one question: **what does each system treat as "the next state"?***
 
@@ -29,7 +29,8 @@
 - [The Next-State Ladder (L0–L5)](#the-next-state-ladder)
 - [How to read every entry](#how-to-read-every-entry)
 - [**The collection**](#the-collection)
-  - [Foundations & precursors](#foundations--precursors)
+  - [Neuroscience & cognitive science](#neuroscience--cognitive-science)
+  - [Algorithmic precursors](#algorithmic-precursors)
   - [Latent world models for control](#latent-world-models-for-control)
   - [Self-predictive & non-generative (JEPA family)](#self-predictive--non-generative-jepa-family)
   - [Generative video & game world models](#generative-video--game-world-models)
@@ -140,22 +141,33 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
 
 > Ordered roughly by lineage within each section. ⭐ marks a field-defining landmark.
 
-## Foundations & precursors
+## Neuroscience & cognitive science
 
-*The idea that minds and machines carry a runnable model of the world is older than deep learning.*
+*Minds were the first world models. The brain looks strikingly like a next-state predictor — and the same math (successor representations, predictive coding) keeps reappearing in machines.*
 
 - ⭐ **[Mental Models](https://en.wikipedia.org/wiki/Mental_model)** — Kenneth Craik, 1943, *The Nature of Explanation*. The founding claim: an organism that carries a "small-scale model" of reality can try out alternatives and react before events happen.
   > 🟢 **Next state:** a model of reality run in the head to anticipate events · **Space:** `latent` · **Cond:** `interventional`
 - **[Predictive Coding](https://en.wikipedia.org/wiki/Predictive_coding)** — Rao & Ballard, 1999, *Nature Neuroscience*. The cortex as a hierarchy that predicts its next input top-down and propagates only the error.
   > 🟢 **Next state:** next sensory input; only prediction error flows upward · **Space:** `latent` · **Cond:** `observational`
-- ⭐ **[Dyna](http://incompleteideas.net/papers/Sutton-91-SB.pdf)** — Richard Sutton, 1991. The blueprint for model-based RL: learn a transition model, then *plan inside it* between real steps.
-  > 🟢 **Next state:** learned transition model replayed for planning · **Space:** `abstract` · **Cond:** `interventional`
-- **[World Models, Planning & Curiosity](https://people.idsia.ch/~juergen/world-models-planning-curiosity-fki-1990.html)** — Jürgen Schmidhuber, 1990. Coupled controller/world-model RNNs and intrinsic curiosity — decades ahead of their hardware.
-  > 🟢 **Next state:** next sensory vector from a recurrent model · **Space:** `latent` · **Cond:** `interventional`
+- **[The Successor Representation](https://scholar.google.com/scholar?q=Dayan+1993+successor+representation)** — Peter Dayan, 1993, *Neural Computation*. Represent each state by its *expected discounted future occupancy* — predict where you'll be, not what you'll see. The idea that quietly underwrites half this list.
+  > 🟢 **Next state:** expected future state-occupancy (a predictive map) · **Space:** `abstract` · **Cond:** `interventional` · **Obj:** `value-equivalent`
+- ⭐ **[The Hippocampus as a Predictive Map](https://scholar.google.com/scholar?q=The+hippocampus+as+a+predictive+map+Stachenfeld)** — Stachenfeld et al., 2017, *Nature Neuroscience*. Place and grid cells appear to encode the successor representation — the brain's spatial memory as a learned next-state predictor.
+  > 🟢 **Next state:** successor representation of future locations · **Space:** `abstract` · **Cond:** `interventional`
 - **[Free-Energy Principle](https://en.wikipedia.org/wiki/Free_energy_principle)** — Karl Friston, 2010. Active inference: perception *and* action both work to minimize the surprise of a generative model.
   > 🟢 **Next state:** generative model minimizing variational free energy · **Space:** `latent` · **Cond:** `interventional`
 - **[The Tolman–Eichenbaum Machine](https://scholar.google.com/scholar?q=Tolman-Eichenbaum+Machine)** — Whittington et al., 2020, *Cell*. Cognitive maps as factorized abstract structure bound to sensory observations — a biologically grounded world model.
   > 🟢 **Next state:** next location in an abstract relational map · **Space:** `abstract` · **Cond:** `interventional`
+- **[Predictive Representations: Building Blocks of Intelligence](https://arxiv.org/abs/2402.06590)** — Carvalho et al., 2024. A review tying the successor representation across reinforcement learning, neuroscience, and world models — the cleanest bridge between the brain and the machine sides of this list.
+  > 🟢 **Next state:** the successor representation as a shared substrate · **Space:** `abstract` · **Cond:** `interventional`
+
+## Algorithmic precursors
+
+*Before deep learning, the model-based idea was already complete: learn the dynamics, then plan inside them.*
+
+- ⭐ **[Dyna](http://incompleteideas.net/papers/Sutton-91-SB.pdf)** — Richard Sutton, 1991. The blueprint for model-based RL: learn a transition model, then *plan inside it* between real steps.
+  > 🟢 **Next state:** learned transition model replayed for planning · **Space:** `abstract` · **Cond:** `interventional`
+- **[World Models, Planning & Curiosity](https://people.idsia.ch/~juergen/world-models-planning-curiosity-fki-1990.html)** — Jürgen Schmidhuber, 1990. Coupled controller/world-model RNNs and intrinsic curiosity — decades ahead of their hardware.
+  > 🟢 **Next state:** next sensory vector from a recurrent model · **Space:** `latent` · **Cond:** `interventional`
 
 ## Latent world models for control
 
@@ -183,6 +195,8 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
   > 🟢 **Next state:** next discrete image token, autoregressive · **Space:** `token` · **Cond:** `interventional` · **Unc:** `softmax`
 - **[DayDreamer](https://arxiv.org/abs/2206.14176)** — Wu et al., 2022, *CoRL*. Dreamer in the physical world — real robots learning online in hours.
   > 🟢 **Next state:** next latent learned online on real robots · **Space:** `latent` · **Cond:** `interventional`
+- **[iVideoGPT](https://arxiv.org/abs/2405.15223)** — Wu et al., 2024, *NeurIPS*. A scalable *interactive* world model: tokenize visual observations, actions, and rewards into one sequence and predict the next token — LLM machinery over embodied experience.
+  > 🟢 **Next state:** next visual / action / reward token (compressive tokenization) · **Space:** `token` · **Cond:** `interventional` · **Unc:** `softmax`
 
 ## Self-predictive & non-generative (JEPA family)
 
@@ -229,6 +243,15 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
   > 🟢 **Next state:** next multi-view driving scene, controllable · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
 - ⭐ **[Genie 3](https://deepmind.google/blog/genie-3-a-new-frontier-for-world-models/)** — Google DeepMind, 2025. The first **real-time, general-purpose interactive** world model — minutes-long, persistent 3D worlds at 720p/24 FPS. Public as *Project Genie* in 2026.
   > 🟢 **Next state:** next frame of a real-time, persistent 3D world · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
+
+*Driving & robotics — world models grounded in the physical world:*
+
+- **[DriveDreamer](https://arxiv.org/abs/2309.09777)** — Wang et al., 2023, *ECCV 2024*. A driving world model learned entirely from real-world video, predicting future frames conditioned on driving actions.
+  > 🟢 **Next state:** next driving-video frame, action-conditioned · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
+- **[Vista](https://arxiv.org/abs/2405.17398)** — OpenDriveLab, 2024, *NeurIPS*. Generalizable, high-fidelity, long-horizon driving world model with multi-modal action control and a built-in reward function.
+  > 🟢 **Next state:** high-fidelity next driving frame under varied controls · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
+- **[RoboDreamer](https://arxiv.org/abs/2404.12377)** — Zhou et al., 2024, *ICML*. A *compositional* world model that factorizes video generation through language primitives, so it can imagine plans for unseen object/action combinations.
+  > 🟢 **Next state:** next video of a robot plan, composed from primitives · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
 
 ## LLMs as implicit world models
 
@@ -290,6 +313,12 @@ The same works, side by side, on the [Five Axes](#the-five-axes-of-next-state-pr
 | LMs Represent Space & Time | 2024 | llm | linear world/time features | text | obs | softmax | likelihood | L1 |
 | RAP | 2023 | llm | next reasoning state | text | act | softmax | likelihood | L3 |
 | Dynalang | 2023 | llm | multimodal text+pixel latent | latent | act | categorical | reconstruction | L4 |
+| Successor Representation | 1993 | neuro | expected future state-occupancy | abstract | act | deterministic | value-equivalent | L3 |
+| Hippocampus Predictive Map | 2017 | neuro | SR of future locations | abstract | act | gaussian | value-equivalent | L3 |
+| DriveDreamer | 2023 | video | next driving frame | pixel | act | diffusion | reconstruction | L4 |
+| iVideoGPT | 2024 | control | visual/action/reward token | token | act | softmax | reconstruction | L4 |
+| RoboDreamer | 2024 | video | composed robot-plan video | pixel | act | diffusion | reconstruction | L4 |
+| Vista | 2024 | video | hi-fi driving frame | pixel | act | diffusion | reconstruction | L4 |
 
 ---
 
@@ -299,15 +328,17 @@ The same works, side by side, on the [Five Axes](#the-five-axes-of-next-state-pr
 1943  ● Craik — mental models (the idea)
 1990  ● Schmidhuber — RNN world models + curiosity
 1991  ● Sutton — Dyna (model-based RL blueprint)
+1993  ● Dayan — successor representation (predict where you'll be)
 1999  ● Rao & Ballard — predictive coding (the brain)
 2010  ● Friston — free-energy principle
+2017  ● Stachenfeld — the hippocampus as a predictive map
 2018  ● Ha & Schmidhuber — "World Models"  │  CPC
 2019  ● PlaNet (RSSM)  │  SimPLe
 2020  ● Dreamer  │  MuZero (value-equivalence)  │  Tolman–Eichenbaum Machine  │  Bisimulation
 2021  ● DreamerV2 (categorical)  │  EfficientZero  │  SPR
 2022  ● LeCun JEPA manifesto  │  DayDreamer  │  Othello-GPT
-2023  ● DreamerV3  │  IRIS  │  I-JEPA  │  GAIA-1  │  RAP  │  Dynalang
-2024  ● Sora  │  Genie  │  GameNGen  │  DIAMOND  │  V-JEPA  │  TD-MPC2  │  UniSim  │  Oasis  │  Genie 2
+2023  ● DreamerV3  │  IRIS  │  I-JEPA  │  GAIA-1  │  RAP  │  Dynalang  │  DriveDreamer
+2024  ● Sora  │  Genie  │  GameNGen  │  DIAMOND  │  V-JEPA  │  TD-MPC2  │  UniSim  │  Vista  │  RoboDreamer  │  iVideoGPT
 2025  ● Cosmos  │  GAIA-2  │  V-JEPA 2-AC  │  Genie 3  │  DreamerV3 → Nature
 2026  ● Genie 3 public (Project Genie) · the real-time interactive world model era
 ```

@@ -137,6 +137,9 @@ select.sort { background: var(--bg); border: 1px solid var(--border-strong); col
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
   display: flex; flex-direction: column; transition: border-color .15s, transform .15s; position: relative; }
 .card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.card .thumb { width: 100%; height: 72px; margin-bottom: 14px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface-2); overflow: hidden; }
+.card .thumb svg { display: block; width: 100%; height: 100%; }
 .card .top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
 .card .gdot { width: 9px; height: 9px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
 .card h3 { margin: 0; font-size: 17px; line-height: 1.3; }

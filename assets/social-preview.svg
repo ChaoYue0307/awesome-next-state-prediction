@@ -1,0 +1,68 @@
+<svg viewBox="0 0 1280 640" width="1280" height="640" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <radialGradient id="g1" cx="28%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#7F77DD" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#7F77DD" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="85%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.20"/>
+      <stop offset="70%" stop-color="#1D9E75" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5DCAA5"/>
+      <stop offset="100%" stop-color="#9D8CF0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="#0B0E14"/>
+  <rect width="1280" height="640" fill="url(#g1)"/>
+  <rect width="1280" height="640" fill="url(#g2)"/>
+  <rect x="3" y="3" width="1274" height="634" rx="22" fill="none" stroke="#232C39" stroke-width="2"/>
+
+  <!-- brand -->
+  <circle cx="84" cy="78" r="8" fill="#1D9E75"/>
+  <text x="102" y="84" fill="#E8EEF5" font-size="22" font-weight="600">next-state</text>
+  <text x="240" y="84" fill="#6E7681" font-size="17">· awesome list of world models</text>
+
+  <!-- title -->
+  <text x="80" y="220" fill="#E8EEF5" font-size="76" font-weight="800" letter-spacing="-2">From next-token</text>
+  <text x="80" y="312" font-size="76" font-weight="800" letter-spacing="-2"><tspan fill="#E8EEF5">to </tspan><tspan fill="url(#grad)">next-state</tspan></text>
+
+  <!-- subtitle -->
+  <text x="82" y="372" fill="#9DA7B3" font-size="26">A curated, opinionated map of world models — tagged by what each</text>
+  <text x="82" y="408" fill="#9DA7B3" font-size="26">system predicts as <tspan fill="#E8EEF5" font-weight="600">the next state of the world.</tspan></text>
+
+  <!-- equation chips -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <rect x="82" y="446" width="290" height="64" rx="14" fill="#161B22" stroke="#3A4048"/>
+    <text x="104" y="476" fill="#6E7681" font-size="13" font-family="-apple-system, sans-serif" letter-spacing="1">NEXT-TOKEN · LLM</text>
+    <text x="104" y="498" fill="#C9D1D9" font-size="20">P(x&#8348;&#8330;&#8321; | x&#8321;:&#8348;)</text>
+    <text x="392" y="486" fill="#D85A30" font-size="26">&#10230;</text>
+    <rect x="430" y="446" width="320" height="64" rx="14" fill="#10211B" stroke="#1D9E75"/>
+    <text x="452" y="476" fill="#5DCAA5" font-size="13" font-family="-apple-system, sans-serif" letter-spacing="1">NEXT-STATE · WORLD MODEL</text>
+    <text x="452" y="498" fill="#E8EEF5" font-size="20">P(s&#8348;&#8330;&#8321; | s&#8348;, a&#8348;)</text>
+  </g>
+
+  <!-- world glyph -->
+  <g transform="translate(1040,300)">
+    <circle r="150" fill="none" stroke="#1D9E75" stroke-width="1.5" opacity="0.28"/>
+    <circle r="104" fill="none" stroke="#5DCAA5" stroke-width="1.5" opacity="0.45"/>
+    <circle r="58" fill="none" stroke="#7F77DD" stroke-width="1.5" opacity="0.6"/>
+    <circle r="26" fill="#1D9E75"/>
+    <circle cx="150" cy="0" r="7" fill="#5DCAA5"/>
+    <circle cx="-104" cy="0" r="5" fill="#9D8CF0"/>
+    <circle cx="0" cy="-58" r="5" fill="#85B7EB"/>
+    <circle cx="74" cy="90" r="4" fill="#F0997B"/>
+  </g>
+
+  <!-- footer: axes + url -->
+  <g font-size="16" font-weight="600">
+    <circle cx="92" cy="566" r="6" fill="#7F77DD"/><text x="106" y="572" fill="#9DA7B3">state</text>
+    <circle cx="192" cy="566" r="6" fill="#1D9E75"/><text x="206" y="572" fill="#9DA7B3">action</text>
+    <circle cx="300" cy="566" r="6" fill="#D85A30"/><text x="314" y="572" fill="#9DA7B3">space</text>
+    <circle cx="406" cy="566" r="6" fill="#378ADD"/><text x="420" y="572" fill="#9DA7B3">uncertainty</text>
+    <circle cx="556" cy="566" r="6" fill="#EF9F27"/><text x="570" y="572" fill="#9DA7B3">objective</text>
+  </g>
+  <text x="82" y="606" fill="#6E7681" font-size="16">github.com/ChaoYue0307/awesome-next-state</text>
+  <text x="1198" y="606" fill="#6E7681" font-size="16" text-anchor="end">49 works · 1943 → 2026 · CC0</text>
+</svg>
