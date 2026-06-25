@@ -19,6 +19,7 @@
   --gray: #888780;
   --radius: 14px;
   --maxw: 1180px;
+  --nav-bg: rgba(11,14,20,0.82);
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -45,9 +46,15 @@ h2 .num { color: var(--faint); font-weight: 600; font-size: 20px; margin-right: 
 /* nav */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(11,14,20,0.82); backdrop-filter: blur(12px);
+  background: var(--nav-bg); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
+.theme-btn { background: var(--surface-2); border: 1px solid var(--border-strong); color: var(--text);
+  width: 34px; height: 34px; border-radius: 9px; cursor: pointer; display: grid; place-items: center; flex-shrink: 0; }
+.theme-btn:hover { border-color: var(--teal); color: var(--teal-l); }
+.theme-btn svg { width: 16px; height: 16px; }
+:root[data-theme="light"] .theme-btn .i-sun { display: none; }
+:root:not([data-theme="light"]) .theme-btn .i-moon { display: none; }
 .nav .container { display: flex; align-items: center; gap: 8px; height: 60px; }
 .nav .brand { font-weight: 700; letter-spacing: -0.01em; margin-right: auto; display: flex; align-items: center; gap: 10px; }
 .nav .brand .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 14px var(--teal); }
@@ -184,3 +191,47 @@ td.mono { font-family: var(--mono); color: var(--muted); }
 footer { padding: 50px 0 60px; border-top: 1px solid var(--border); color: var(--faint); font-size: 14px; }
 footer .container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; }
 footer .quote { font-style: italic; color: var(--muted); max-width: 540px; }
+
+/* ---------- compare widget ---------- */
+.compare-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.cmp-select { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border-strong);
+  color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 14px; font-family: var(--sans); }
+.cmp-select:focus { outline: none; border-color: var(--teal); }
+.compare-grid { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+.cmp-table th, .cmp-table td { padding: 13px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.cmp-table thead th { background: var(--surface-2); font-weight: 600; }
+.cmp-table thead th a { color: var(--text); }
+.cmp-table thead th a:hover { color: var(--teal-l); }
+.cmp-meta { color: var(--faint); font-size: 12px; font-weight: 400; margin-top: 3px; }
+.cmp-axis { color: var(--muted); font-weight: 500; white-space: nowrap; width: 150px; }
+.cmp-table tr.cmp-differs td { background: rgba(216,90,48,0.08); }
+.cmp-table tr.cmp-differs .cmp-axis { color: var(--coral-l); }
+.cmp-neq { font-family: var(--mono); color: var(--coral-l); margin-left: 4px; }
+.cmp-empty { color: var(--faint); padding: 24px; text-align: center; }
+
+/* ---------- light theme ---------- */
+:root[data-theme="light"] {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --surface-2: #f4f5f3;
+  --surface-3: #ebece8;
+  --border: #e4e5e1;
+  --border-strong: #d2d4cd;
+  --text: #1d2026;
+  --muted: #585c63;
+  --faint: #8a8d85;
+  --teal: #0F6E56;
+  --teal-l: #0F6E56;
+  --coral-l: #993C1D;
+  --blue-l: #185FA5;
+  --nav-bg: rgba(251,251,250,0.85);
+}
+:root[data-theme="light"] h1 .grad { background: linear-gradient(100deg, #0F6E56, #534AB7); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .hero::before {
+  background: radial-gradient(60% 70% at 30% 0%, rgba(127,119,221,0.10), transparent 70%),
+              radial-gradient(50% 60% at 80% 10%, rgba(29,158,117,0.10), transparent 70%);
+}
+:root[data-theme="light"] .card .thumb { background: #0e1117; }
+:root[data-theme="light"] .btn.primary { background: #0F6E56; color: #ffffff; }
+:root[data-theme="light"] kbd { background: var(--surface-3); }

@@ -7,6 +7,22 @@
   const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
   const condLabel = c => (c === "act" ? "interventional" : "observational");
 
+  let mapChart = null, timeChart = null;
+  function curTheme() { return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+  function tc() {
+    const light = curTheme() === "light";
+    return {
+      grid: light ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.045)",
+      tick: light ? "#585c63" : "#6E7681",
+      tipBg: light ? "#ffffff" : "#161B22",
+      tipBorder: light ? "#d2d4cd" : "#313c4d",
+      tipTitle: light ? "#1d2026" : "#E8EEF5",
+      tipBody: light ? "#585c63" : "#9DA7B3",
+      qline: light ? "rgba(0,0,0,0.16)" : "rgba(255,255,255,0.12)",
+      qlabel: light ? "rgba(0,0,0,0.42)" : "rgba(255,255,255,0.34)"
+    };
+  }
+
   /* ---------- stats ---------- */
   (function stats() {
     const years = WORKS.map(w => w.year);
@@ -61,11 +77,12 @@
         ];
         ctx.save();
         tints.forEach(t => { ctx.fillStyle = t[4]; ctx.fillRect(t[0], t[1], t[2], t[3]); });
-        ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 1; ctx.setLineDash([4, 5]);
+        const T = tc();
+        ctx.strokeStyle = T.qline; ctx.lineWidth = 1; ctx.setLineDash([4, 5]);
         ctx.beginPath(); ctx.moveTo(xm, a.top); ctx.lineTo(xm, a.bottom);
         ctx.moveTo(a.left, ym); ctx.lineTo(a.right, ym); ctx.stroke();
         ctx.setLineDash([]);
-        ctx.font = "600 12px -apple-system, Segoe UI, sans-serif"; ctx.fillStyle = "rgba(255,255,255,0.34)";
+        ctx.font = "600 12px -apple-system, Segoe UI, sans-serif"; ctx.fillStyle = T.qlabel;
         ctx.textAlign = "left"; ctx.fillText("generative game / video worlds", a.left + 10, a.top + 18);
         ctx.textAlign = "right"; ctx.fillText("planning-first models", a.right - 10, a.top + 18);
         ctx.textAlign = "left"; ctx.fillText("video as simulator", a.left + 10, a.bottom - 12);
@@ -74,7 +91,9 @@
       }
     };
   }
-  (function map() {
+  function buildMap() {
+    if (mapChart) mapChart.destroy();
+    const T = tc();
     const datasets = Object.entries(GROUPS).map(([k, g]) => ({
       label: g.label,
       data: WORKS.filter(w => w.group === k).map(w => ({ x: w.x, y: w.y, w })),
@@ -83,7 +102,7 @@
       borderWidth: 1.5,
       pointRadius: 7, pointHoverRadius: 10
     }));
-    new Chart($("#mapChart"), {
+    mapChart = new Chart($("#mapChart"), {
       type: "scatter",
       data: { datasets },
       options: {
@@ -96,16 +115,16 @@
           if (pt && pt.w) focusCard(pt.w.id);
         },
         scales: {
-          x: { min: 0, max: 1, grid: { color: "rgba(255,255,255,0.04)" }, ticks: { display: false },
-               title: { display: true, text: "PREDICTION SPACE   raw pixels  →  abstract / latent", color: "#6E7681", font: { size: 12 } } },
-          y: { min: 0, max: 1, grid: { color: "rgba(255,255,255,0.04)" }, ticks: { display: false },
-               title: { display: true, text: "CONDITIONING   observational  →  action-conditioned", color: "#6E7681", font: { size: 12 } } }
+          x: { min: 0, max: 1, grid: { color: T.grid }, ticks: { display: false },
+               title: { display: true, text: "PREDICTION SPACE   raw pixels  →  abstract / latent", color: T.tick, font: { size: 12 } } },
+          y: { min: 0, max: 1, grid: { color: T.grid }, ticks: { display: false },
+               title: { display: true, text: "CONDITIONING   observational  →  action-conditioned", color: T.tick, font: { size: 12 } } }
         },
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: "#161B22", borderColor: "#313c4d", borderWidth: 1, padding: 12,
-            titleColor: "#E8EEF5", bodyColor: "#9DA7B3", titleFont: { size: 14 },
+            backgroundColor: T.tipBg, borderColor: T.tipBorder, borderWidth: 1, padding: 12,
+            titleColor: T.tipTitle, bodyColor: T.tipBody, titleFont: { size: 14 },
             callbacks: {
               title: items => items[0].raw.w.name + "  ·  " + items[0].raw.w.year,
               label: () => "",
@@ -120,10 +139,10 @@
       plugins: [quadrantPlugin()]
     });
     const lg = $("#mapLegend");
-    Object.values(GROUPS).forEach(g => {
+    if (!lg.children.length) Object.values(GROUPS).forEach(g => {
       lg.append(el("span", null, `<i style="background:${g.color}"></i>${g.label}`));
     });
-  })();
+  }
 
   /* ---------- per-card "next-state" thumbnail ----------
      A schematic glyph of the state representation (left, muted) being predicted
@@ -339,7 +358,9 @@
   }
 
   /* ---------- timeline (scatter by lineage lane) ---------- */
-  (function timeline() {
+  function buildTimeline() {
+    if (timeChart) timeChart.destroy();
+    const T = tc();
     const order = Object.keys(GROUPS);
     const datasets = order.map((k, i) => ({
       label: GROUPS[k].label,
@@ -350,34 +371,97 @@
       borderColor: GROUPS[k].color, borderWidth: 1,
       pointRadius: 6, pointHoverRadius: 9
     }));
-    new Chart($("#timeChart"), {
+    timeChart = new Chart($("#timeChart"), {
       type: "scatter",
       data: { datasets },
       options: {
         maintainAspectRatio: false,
         layout: { padding: 6 },
         scales: {
-          x: { min: 1940, max: 2027, grid: { color: "rgba(255,255,255,0.04)" },
-               ticks: { color: "#6E7681", stepSize: 10, callback: v => v } },
-          y: { min: -0.6, max: order.length - 0.4, grid: { color: "rgba(255,255,255,0.04)" },
-               ticks: { color: "#9DA7B3", stepSize: 1, callback: v => (GROUPS[order[v]] ? GROUPS[order[v]].label.replace(/ \(.*\)/, "") : "") } }
+          x: { min: 1940, max: 2027, grid: { color: T.grid },
+               ticks: { color: T.tick, stepSize: 10, callback: v => v } },
+          y: { min: -0.6, max: order.length - 0.4, grid: { color: T.grid },
+               ticks: { color: T.tipBody, stepSize: 1, callback: v => (GROUPS[order[v]] ? GROUPS[order[v]].label.replace(/ \(.*\)/, "") : "") } }
         },
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: "#161B22", borderColor: "#313c4d", borderWidth: 1, padding: 10,
-            titleColor: "#E8EEF5", bodyColor: "#9DA7B3",
+            backgroundColor: T.tipBg, borderColor: T.tipBorder, borderWidth: 1, padding: 10,
+            titleColor: T.tipTitle, bodyColor: T.tipBody,
             callbacks: { title: it => it[0].raw.w.name + " · " + it[0].raw.w.year, label: it => it.raw.w.state }
           }
         }
       }
     });
-  })();
+  }
 
+  /* ---------- theme ---------- */
+  function applyTheme(t) {
+    document.documentElement.setAttribute("data-theme", t);
+    try { localStorage.setItem("nsp-theme", t); } catch (e) {}
+  }
+  function initTheme() {
+    let saved; try { saved = localStorage.getItem("nsp-theme"); } catch (e) {}
+    applyTheme(saved || "dark");
+    const btn = $("#theme-toggle");
+    if (btn) btn.addEventListener("click", () => {
+      applyTheme(curTheme() === "light" ? "dark" : "light");
+      buildMap(); buildTimeline();
+    });
+  }
+
+  /* ---------- compare widget ---------- */
+  function buildCompare() {
+    const ctrl = $("#compare-controls"); if (!ctrl) return;
+    const sorted = WORKS.slice().sort((a, b) => a.name.localeCompare(b.name));
+    const defaults = ["muzero-2020", "diamond-2024", "ijepa-2023"];
+    const optionsHTML = `<option value="">— none —</option>` + Object.entries(GROUPS).map(([gk, g]) => {
+      const opts = sorted.filter(w => w.group === gk).map(w => `<option value="${w.id}">${w.name}</option>`).join("");
+      return opts ? `<optgroup label="${g.label.replace(/ \(.*\)/, "")}">${opts}</optgroup>` : "";
+    }).join("");
+    for (let i = 0; i < 3; i++) {
+      const sel = el("select", "cmp-select");
+      sel.innerHTML = optionsHTML;
+      sel.value = defaults[i] || "";
+      sel.addEventListener("change", renderCompare);
+      ctrl.append(sel);
+    }
+    renderCompare();
+  }
+  function renderCompare() {
+    const picks = [...document.querySelectorAll("#compare-controls .cmp-select")]
+      .map(s => WORKS.find(w => w.id === s.value)).filter(Boolean);
+    const grid = $("#compare-grid");
+    if (picks.length < 2) { grid.innerHTML = `<p class="cmp-empty">Pick at least two systems to compare.</p>`; return; }
+    const rows = [
+      ["Next state", w => w.state],
+      ["Lineage", w => GROUPS[w.group].label.replace(/ \(.*\)/, "")],
+      ["Prediction space", w => w.space],
+      ["Conditioning", w => condLabel(w.cond)],
+      ["Uncertainty", w => w.unc],
+      ["Objective", w => w.obj],
+      ["Ladder", w => "L" + w.ladder]
+    ];
+    let h = `<table class="cmp-table"><thead><tr><th></th>` + picks.map(w =>
+      `<th><span class="gdot" style="background:${GROUPS[w.group].color}"></span><a href="${w.url}" target="_blank" rel="noopener">${w.name}</a><div class="cmp-meta">${w.org} · ${w.year}</div></th>`).join("") + `</tr></thead><tbody>`;
+    rows.forEach(([label, fn]) => {
+      const vals = picks.map(fn);
+      const differs = new Set(vals).size > 1;
+      h += `<tr class="${differs ? "cmp-differs" : ""}"><td class="cmp-axis">${label}${differs ? ' <span class="cmp-neq">≠</span>' : ""}</td>` +
+        vals.map(v => `<td>${v}</td>`).join("") + `</tr>`;
+    });
+    grid.innerHTML = h + `</tbody></table>`;
+  }
+
+  /* ---------- init ---------- */
+  initTheme();
   restoreFromURL();
   buildFilters();
   render();
   buildTable();
+  buildMap();
+  buildTimeline();
+  buildCompare();
   document.addEventListener("keydown", e => {
     if (e.key === "/" && !/^(input|textarea|select)$/i.test(document.activeElement.tagName)) {
       e.preventDefault(); $("#search").focus();
