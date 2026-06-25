@@ -140,7 +140,7 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
 
 ## Landmark figures
 
-*Eight marquee systems, each with a representative figure from its paper or project page. On the [interactive site](https://chaoyue0307.github.io/awesome-next-state-prediction/), every one of the 49 cards also carries a schematic of its state turning into the next.*
+*Ten marquee systems, each with a representative figure from its paper or project page. On the [interactive site](https://chaoyue0307.github.io/awesome-next-state-prediction/), every one of the 49 cards also carries a schematic of its state turning into the next.*
 
 |  |  |
 |:--|:--|
@@ -148,6 +148,7 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
 | [**MuZero**](https://arxiv.org/abs/1911.08265) — value-equivalent planning<br><img src="docs/assets/papers/muzero.jpg" width="400"> | [**DIAMOND**](https://arxiv.org/abs/2405.12399) — diffusion world model (animated)<br><img src="docs/assets/papers/diamond.gif" width="400"> |
 | [**GameNGen**](https://arxiv.org/abs/2408.14837) — the network *is* the game engine<br><img src="docs/assets/papers/gamengen.png" width="400"> | [**TD-MPC2**](https://arxiv.org/abs/2310.16828) — decoder-free latent control<br><img src="docs/assets/papers/tdmpc2.jpg" width="400"> |
 | [**Genie 2**](https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/) — 3D worlds from one image<br><img src="docs/assets/papers/genie2.jpg" width="400"> | [**World Models**](https://arxiv.org/abs/1803.10122) — the original VAE + RNN<br><img src="docs/assets/papers/world-models.svg" width="400"> |
+| [**IRIS**](https://arxiv.org/abs/2209.00588) — Transformer world model on Atari<br><img src="docs/assets/papers/iris.jpg" width="400"> | [**I-JEPA**](https://arxiv.org/abs/2301.08243) — predict masked representations<br><img src="docs/assets/papers/ijepa.png" width="400"> |
 
 > *Figures are © their respective authors and labs, reproduced here at thumbnail scale for non-commercial, educational indexing, each linked to its source. If you are an author and would prefer your figure not appear, open an issue and it will be removed.*
 
