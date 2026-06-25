@@ -288,7 +288,34 @@ window.WORKS = [
     url: "https://arxiv.org/abs/2405.15223", group: "control",
     state: "next visual / action / reward token via compressive tokenization",
     space: "token", cond: "act", unc: "softmax", obj: "reconstruction", x: 0.44, y: 0.9, ladder: 4,
-    note: "Scalable interactive world model: GPT machinery over tokenized experience." }
+    note: "Scalable interactive world model: GPT machinery over tokenized experience." },
+
+  // ---------------- 2024-2025 additions ----------------
+  { id: "value-equivalence-2020", name: "The Value-Equivalence Principle", org: "Grimm et al.", year: 2020, venue: "NeurIPS",
+    url: "https://arxiv.org/abs/2011.03506", group: "control",
+    state: "a model that reproduces Bellman updates, not state-to-state transitions",
+    space: "abstract", cond: "act", unc: "deterministic", obj: "value-equivalent", x: 0.96, y: 0.82, ladder: 5,
+    note: "The theory under MuZero: model only what's needed to predict value." },
+  { id: "unipi-2023", name: "UniPi", org: "Du et al.", year: 2023, venue: "NeurIPS",
+    url: "https://arxiv.org/abs/2302.00111", group: "video",
+    state: "next video frame from a text-conditioned generator; actions via inverse dynamics",
+    space: "pixel", cond: "act", unc: "diffusion", obj: "reconstruction", x: 0.2, y: 0.82, ladder: 4,
+    note: "Policies as text-to-video — one generator generalizes across environments." },
+  { id: "dino-wm-2024", name: "DINO-WM", org: "Zhou et al.", year: 2024, venue: "arXiv",
+    url: "https://arxiv.org/abs/2411.04983", group: "jepa",
+    state: "next DINOv2 patch features; plan by optimizing actions toward goal features",
+    space: "latent", cond: "act", unc: "energy", obj: "energy", x: 0.74, y: 0.88, ladder: 5,
+    note: "World models on frozen DINOv2 features — zero-shot planning, no pixels." },
+  { id: "nwm-2024", name: "Navigation World Models", org: "Bar et al.", year: 2025, venue: "CVPR",
+    url: "https://arxiv.org/abs/2412.03572", group: "video",
+    state: "next egocentric view conditioned on a navigation action (CDiT diffusion)",
+    space: "pixel", cond: "act", unc: "diffusion", obj: "reconstruction", x: 0.26, y: 0.93, ladder: 5,
+    note: "Plan routes by simulating futures and scoring goal arrival; LeCun et al." },
+  { id: "wham-2025", name: "WHAM / Muse", org: "Microsoft & Ninja Theory", year: 2025, venue: "Nature",
+    url: "https://www.microsoft.com/en-us/research/blog/introducing-muse-our-first-generative-ai-model-designed-for-gameplay-ideation/", group: "video",
+    state: "next game frame and controller action, generated jointly",
+    space: "token", cond: "act", unc: "softmax", obj: "reconstruction", x: 0.4, y: 0.9, ladder: 4,
+    note: "The first World and Human Action Model — visuals and actions together." }
 ];
 
 window.GROUPS = {

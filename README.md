@@ -10,7 +10,7 @@
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Website](https://img.shields.io/badge/website-live-7F77DD.svg)](https://chaoyue0307.github.io/awesome-next-state-prediction/)
-[![Works](https://img.shields.io/badge/works-49-1D9E75.svg)](#the-collection)
+[![Works](https://img.shields.io/badge/works-54-1D9E75.svg)](#the-collection)
 
 *A living index of world models, organized by one question: **what does each system treat as "the next state"?***
 
@@ -29,6 +29,7 @@
 - [The Next-State Ladder (L0–L5)](#the-next-state-ladder)
 - [Landmark figures](#landmark-figures)
 - [How to read every entry](#how-to-read-every-entry)
+- [Reading paths](#reading-paths)
 - [**The collection**](#the-collection)
   - [Neuroscience & cognitive science](#neuroscience--cognitive-science)
   - [Algorithmic precursors](#algorithmic-precursors)
@@ -38,6 +39,7 @@
   - [LLMs as implicit world models](#llms-as-implicit-world-models)
   - [Surveys & meta](#surveys--meta)
 - [Comparison table](#comparison-table)
+- [Benchmarks & datasets](#benchmarks--datasets)
 - [Timeline](#timeline)
 - [Open problems & frontiers](#open-problems--frontiers)
 - [How to read a world-model paper (checklist)](#how-to-read-a-world-model-paper)
@@ -154,6 +156,17 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
 
 ---
 
+## Reading paths
+
+*Four curated routes through the list, depending on what you're after. Each is roughly easy → frontier.*
+
+- 🎮 **Build a world model for control** — [World Models](#latent-world-models-for-control) → [PlaNet](#latent-world-models-for-control) → [Dreamer](#latent-world-models-for-control) → [DreamerV3](#latent-world-models-for-control) → [MuZero](#latent-world-models-for-control) → [TD-MPC2](#latent-world-models-for-control)
+- 🧠 **The non-generative / JEPA track** (predict representations, not pixels) — [CPC](#self-predictive--non-generative-jepa-family) → [SPR](#self-predictive--non-generative-jepa-family) → [LeCun's JEPA manifesto](#self-predictive--non-generative-jepa-family) → [I-JEPA](#self-predictive--non-generative-jepa-family) → [V-JEPA 2](#self-predictive--non-generative-jepa-family) → [DINO-WM](#self-predictive--non-generative-jepa-family)
+- 🎬 **Generative video & playable worlds** — [Sora](#generative-video--game-world-models) → [GameNGen](#generative-video--game-world-models) → [DIAMOND](#generative-video--game-world-models) → [Genie](#generative-video--game-world-models) → [Genie 3](#generative-video--game-world-models) → [WHAM / Muse](#generative-video--game-world-models)
+- 📐 **The theory — why and what to model** — [Dyna](#algorithmic-precursors) → [The Successor Representation](#neuroscience--cognitive-science) → [Predictive Coding](#neuroscience--cognitive-science) → [The Value-Equivalence Principle](#latent-world-models-for-control) → [Free-Energy Principle](#neuroscience--cognitive-science) → [the survey](#surveys--meta)
+
+---
+
 # The collection
 
 > Ordered roughly by lineage within each section. ⭐ marks a field-defining landmark.
@@ -204,6 +217,8 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
   > 🟢 **Next state:** next video frame from a stochastic pixel model · **Space:** `pixel` · **Cond:** `interventional`
 - ⭐ **[MuZero](https://arxiv.org/abs/1911.08265)** — Schrittwieser et al., 2020, *Nature*. The purest statement of **value-equivalence**: never reconstruct observations; model only an abstract state sufficient to predict reward, value, and policy.
   > 🟢 **Next state:** next **abstract** state — only what planning needs · **Space:** `abstract` · **Cond:** `interventional` · **Obj:** `value-equivalent`
+- **[The Value-Equivalence Principle](https://arxiv.org/abs/2011.03506)** — Grimm et al., 2020, *NeurIPS*. The theory that formalizes MuZero's bet: two models are equivalent if they yield the same Bellman updates — so model only what affects value, nothing else.
+  > 🟢 **Next state:** a model that reproduces Bellman updates, not transitions · **Space:** `abstract` · **Cond:** `interventional` · **Obj:** `value-equivalent`
 - **[EfficientZero](https://arxiv.org/abs/2111.00210)** — Ye et al., 2021, *NeurIPS*. First *super-human* Atari at 100k frames (≈2 hours of play) by adding a self-supervised consistency loss to MuZero.
   > 🟢 **Next state:** next abstract MuZero state with consistency loss · **Space:** `abstract` · **Cond:** `interventional` · **Obj:** `value-equivalent`
 - **[TD-MPC2](https://arxiv.org/abs/2310.16828)** — Hansen et al., 2024, *ICLR*. A **decoder-free** implicit latent model + model-predictive control; one agent scales across 80+ continuous-control tasks.
@@ -233,6 +248,8 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
   > 🟢 **Next state:** features of masked spatio-temporal video regions · **Space:** `latent` · **Cond:** `observational` · **Obj:** `energy`
 - ⭐ **[V-JEPA 2 & V-JEPA 2-AC](https://arxiv.org/abs/2506.09985)** — Meta AI, 2025. 1M+ hours of video pretraining, then a 300M-param **action-conditioned** latent world model that lets real Franka arms plan pick-and-place **zero-shot** in unseen labs.
   > 🟢 **Next state:** next video-frame *representation* conditioned on an action · **Space:** `latent` · **Cond:** `interventional` · **Obj:** `energy`
+- **[DINO-WM](https://arxiv.org/abs/2411.04983)** — Zhou et al., 2024. World models built on *frozen* DINOv2 patch features: predict future features, then plan zero-shot by optimizing actions toward goal features — no pixel decoding.
+  > 🟢 **Next state:** next DINOv2 patch features (planned over) · **Space:** `latent` · **Cond:** `interventional` · **Obj:** `energy`
 
 ## Generative video & game world models
 
@@ -269,6 +286,12 @@ Each work below carries a one-line **next-state tag** so you can scan the field 
   > 🟢 **Next state:** high-fidelity next driving frame under varied controls · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
 - **[RoboDreamer](https://arxiv.org/abs/2404.12377)** — Zhou et al., 2024, *ICML*. A *compositional* world model that factorizes video generation through language primitives, so it can imagine plans for unseen object/action combinations.
   > 🟢 **Next state:** next video of a robot plan, composed from primitives · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
+- **[UniPi](https://arxiv.org/abs/2302.00111)** — Du et al., 2023, *NeurIPS*. Policies as **text-guided video**: generate the video of a task from a text goal, then recover low-level actions with an inverse dynamics model — one generator generalizes across environments.
+  > 🟢 **Next state:** next video frame from a text-conditioned generator · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
+- ⭐ **[Navigation World Models](https://arxiv.org/abs/2412.03572)** — Bar et al., 2025, *CVPR* (best-paper honorable mention). A 1B-param Conditional Diffusion Transformer that predicts future egocentric views from navigation actions, then plans routes by simulating and scoring them.
+  > 🟢 **Next state:** next egocentric view, action-conditioned · **Space:** `pixel` · **Cond:** `interventional` · **Unc:** `diffusion`
+- **[WHAM / Muse](https://www.microsoft.com/en-us/research/blog/introducing-muse-our-first-generative-ai-model-designed-for-gameplay-ideation/)** — Microsoft & Ninja Theory, 2025, *Nature*. The first **W**orld **a**nd **H**uman **A**ction **M**odel — trained on *Bleeding Edge*, it generates game visuals and controller actions jointly.
+  > 🟢 **Next state:** next game frame and controller action, jointly · **Space:** `token` · **Cond:** `interventional` · **Unc:** `softmax`
 
 ## LLMs as implicit world models
 
@@ -336,8 +359,29 @@ The same works, side by side, on the [Five Axes](#the-five-axes-of-next-state-pr
 | iVideoGPT | 2024 | control | visual/action/reward token | token | act | softmax | reconstruction | L4 |
 | RoboDreamer | 2024 | video | composed robot-plan video | pixel | act | diffusion | reconstruction | L4 |
 | Vista | 2024 | video | hi-fi driving frame | pixel | act | diffusion | reconstruction | L4 |
+| Value-Equivalence Principle | 2020 | control | Bellman-update-equivalent model | abstract | act | deterministic | value-equivalent | L5 |
+| UniPi | 2023 | video | text-conditioned next frame | pixel | act | diffusion | reconstruction | L4 |
+| DINO-WM | 2024 | jepa | next DINOv2 patch features | latent | act | energy | energy | L5 |
+| Navigation World Models | 2025 | video | next egocentric view | pixel | act | diffusion | reconstruction | L5 |
+| WHAM / Muse | 2025 | video | game frame + controller action | token | act | softmax | reconstruction | L4 |
 
 ---
+
+## Benchmarks & datasets
+
+*Where world models are actually measured — the benchmark a paper reports on tells you what kind of "next state" it cares about. Representative, not exhaustive.*
+
+| Benchmark | Domain | What it stresses | Used by |
+|-----------|--------|------------------|---------|
+| **Atari 100k** | discrete games (pixels) | sample-efficient control from ~2h of play | DreamerV2/3 · MuZero · EfficientZero · IRIS · DIAMOND · SPR · iVideoGPT |
+| **DeepMind Control (DMC)** | continuous control | latent dynamics + planning | PlaNet · Dreamer · TD-MPC2 |
+| **Minecraft / MineDojo** | open-world, long-horizon | exploration & hierarchical goals | DreamerV3 · Oasis |
+| **RLBench / CALVIN / Meta-World** | robotic manipulation | language- & goal-conditioned control | RoboDreamer · UniPi · DINO-WM |
+| **nuScenes / Waymo** | autonomous driving | multi-view future prediction | GAIA-1/2 · DriveDreamer · Vista |
+| **Ego4D / Something-Something** | egocentric & web video | representation / feature prediction | V-JEPA · V-JEPA 2 · Navigation World Models |
+| **ImageNet (linear / k-NN probe)** | static images | semantic representation quality | I-JEPA |
+
+> A telling pattern: the **left column moves from pixels to abstraction** exactly as the [landscape map](#the-landscape-map) predicts — control benchmarks reward abstract/value-equivalent state, representation benchmarks reward latent feature prediction, and video benchmarks reward pixel fidelity.
 
 ## Timeline
 
@@ -351,12 +395,12 @@ The same works, side by side, on the [Five Axes](#the-five-axes-of-next-state-pr
 2017  ● Stachenfeld — the hippocampus as a predictive map
 2018  ● Ha & Schmidhuber — "World Models"  │  CPC
 2019  ● PlaNet (RSSM)  │  SimPLe
-2020  ● Dreamer  │  MuZero (value-equivalence)  │  Tolman–Eichenbaum Machine  │  Bisimulation
+2020  ● Dreamer  │  MuZero (value-equivalence)  │  Value-Equivalence Principle  │  TEM  │  Bisimulation
 2021  ● DreamerV2 (categorical)  │  EfficientZero  │  SPR
 2022  ● LeCun JEPA manifesto  │  DayDreamer  │  Othello-GPT
-2023  ● DreamerV3  │  IRIS  │  I-JEPA  │  GAIA-1  │  RAP  │  Dynalang  │  DriveDreamer
-2024  ● Sora  │  Genie  │  GameNGen  │  DIAMOND  │  V-JEPA  │  TD-MPC2  │  UniSim  │  Vista  │  RoboDreamer  │  iVideoGPT
-2025  ● Cosmos  │  GAIA-2  │  V-JEPA 2-AC  │  Genie 3  │  DreamerV3 → Nature
+2023  ● DreamerV3  │  IRIS  │  I-JEPA  │  GAIA-1  │  RAP  │  Dynalang  │  DriveDreamer  │  UniPi
+2024  ● Sora  │  Genie  │  GameNGen  │  DIAMOND  │  V-JEPA  │  TD-MPC2  │  UniSim  │  Vista  │  RoboDreamer  │  iVideoGPT  │  DINO-WM
+2025  ● Cosmos  │  GAIA-2  │  V-JEPA 2-AC  │  Genie 3  │  DreamerV3 → Nature  │  Navigation World Models  │  WHAM/Muse
 2026  ● Genie 3 public (Project Genie) · the real-time interactive world model era
 ```
 

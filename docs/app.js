@@ -89,6 +89,12 @@
       options: {
         maintainAspectRatio: false,
         layout: { padding: 6 },
+        onClick: (e, els, chart) => {
+          if (!els.length) return;
+          const el0 = els[0];
+          const pt = chart.data.datasets[el0.datasetIndex].data[el0.index];
+          if (pt && pt.w) focusCard(pt.w.id);
+        },
         scales: {
           x: { min: 0, max: 1, grid: { color: "rgba(255,255,255,0.04)" }, ticks: { display: false },
                title: { display: true, text: "PREDICTION SPACE   raw pixels  →  abstract / latent", color: "#6E7681", font: { size: 12 } } },
@@ -172,34 +178,66 @@
   const state = { groups: new Set(), spaces: new Set(), cond: new Set(), q: "", sort: "year-desc" };
   const SPACES = ["text", "token", "pixel", "latent", "abstract"];
 
-  function chip(text, active, on) {
+  function chip(text, active, color, on) {
     const c = el("button", "chip" + (active ? " active" : ""), text);
+    if (active && color) c.style.background = color;
     c.addEventListener("click", on);
     return c;
+  }
+  function restoreFromURL() {
+    const p = new URLSearchParams(location.search);
+    (p.get("group") || "").split(",").filter(Boolean).forEach(g => state.groups.add(g));
+    (p.get("space") || "").split(",").filter(Boolean).forEach(s => state.spaces.add(s));
+    (p.get("cond") || "").split(",").filter(Boolean).forEach(c => state.cond.add(c));
+    if (p.get("q")) state.q = p.get("q").toLowerCase();
+    if (p.get("sort")) state.sort = p.get("sort");
+  }
+  function syncURL() {
+    const p = new URLSearchParams();
+    if (state.groups.size) p.set("group", [...state.groups].join(","));
+    if (state.spaces.size) p.set("space", [...state.spaces].join(","));
+    if (state.cond.size) p.set("cond", [...state.cond].join(","));
+    if (state.q) p.set("q", state.q);
+    if (state.sort !== "year-desc") p.set("sort", state.sort);
+    const qs = p.toString();
+    history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
   }
   function buildFilters() {
     const gc = $("#group-chips");
     Object.entries(GROUPS).forEach(([k, g]) => {
-      const c = chip(g.label.replace(/ \(.*\)/, ""), false, () => toggle(state.groups, k, c, g.color));
+      const c = chip(g.label.replace(/ \(.*\)/, ""), state.groups.has(k), g.color, () => toggle(state.groups, k, c, g.color));
       gc.append(c);
     });
     const sc = $("#space-chips");
     SPACES.forEach(s => {
-      const c = chip(s, false, () => toggle(state.spaces, s, c, "var(--blue)"));
+      const c = chip(s, state.spaces.has(s), "var(--blue)", () => toggle(state.spaces, s, c, "var(--blue)"));
       sc.append(c);
     });
     const cc = $("#cond-chips");
     [["act", "interventional"], ["obs", "observational"]].forEach(([k, lbl]) => {
-      const c = chip(lbl, false, () => toggle(state.cond, k, c, k === "act" ? "var(--teal)" : "var(--blue)"));
+      const col = k === "act" ? "var(--teal)" : "var(--blue)";
+      const c = chip(lbl, state.cond.has(k), col, () => toggle(state.cond, k, c, col));
       cc.append(c);
     });
-    $("#search").addEventListener("input", e => { state.q = e.target.value.toLowerCase(); render(); });
-    $("#sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+    const search = $("#search"); search.value = state.q;
+    search.addEventListener("input", e => { state.q = e.target.value.toLowerCase(); render(); });
+    const sort = $("#sort"); sort.value = state.sort;
+    sort.addEventListener("change", e => { state.sort = e.target.value; render(); });
   }
   function toggle(set, key, chipEl, color) {
     if (set.has(key)) { set.delete(key); chipEl.classList.remove("active"); chipEl.style.background = ""; }
     else { set.add(key); chipEl.classList.add("active"); chipEl.style.background = color; }
     render();
+  }
+  function clearFilters() {
+    state.groups.clear(); state.spaces.clear(); state.cond.clear(); state.q = "";
+    document.querySelectorAll("#filters .chip.active").forEach(c => { c.classList.remove("active"); c.style.background = ""; });
+    $("#search").value = "";
+  }
+  function focusCard(id) {
+    if (!document.getElementById("w-" + id)) { clearFilters(); render(); }
+    const card = document.getElementById("w-" + id);
+    if (card) { card.scrollIntoView({ behavior: "smooth", block: "center" }); card.classList.add("flash"); setTimeout(() => card.classList.remove("flash"), 1600); }
   }
   function filtered() {
     let r = WORKS.filter(w => {
@@ -227,6 +265,7 @@
     r.forEach(w => {
       const g = GROUPS[w.group];
       const card = el("div", "card");
+      card.id = "w-" + w.id;
       const thumbInner = w.img
         ? `<img src="${w.img}" alt="${w.name} — figure © its authors" loading="lazy">`
         : thumb(w);
@@ -249,6 +288,7 @@
       grid.append(card);
     });
     $("#count").textContent = r.length + " / " + WORKS.length + " works";
+    syncURL();
   }
 
   /* ---------- comparison table ---------- */
@@ -334,7 +374,13 @@
     });
   })();
 
+  restoreFromURL();
   buildFilters();
   render();
   buildTable();
+  document.addEventListener("keydown", e => {
+    if (e.key === "/" && !/^(input|textarea|select)$/i.test(document.activeElement.tagName)) {
+      e.preventDefault(); $("#search").focus();
+    }
+  });
 })();

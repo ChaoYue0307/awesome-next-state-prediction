@@ -1,0 +1,41 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "scripts/**", ".github/workflows/validate.yml"]
+  pull_request:
+    paths: ["docs/**", "scripts/**", "README.md"]
+  schedule:
+    - cron: "0 6 * * 1"   # weekly link check, Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  works-data:
+    name: Validate works.js
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate dataset schema
+        run: node scripts/validate-works.js
+      - name: Syntax-check site JS
+        run: |
+          node --check docs/works.js
+          node --check docs/app.js
+
+  links:
+    name: Link check (informational)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check README links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: "--no-progress --max-concurrency 4 --accept 200,206,429 README.md"
+          fail: false

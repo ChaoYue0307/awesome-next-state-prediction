@@ -1,0 +1,61 @@
+name: Add a paper
+description: Suggest a world model / next-state-prediction paper for the list
+title: "[Add] <paper name>"
+labels: ["new paper"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for contributing! The one rule of this list: **say what the system treats as the next state.**"
+  - type: input
+    id: paper
+    attributes:
+      label: Paper title & primary link
+      description: Title plus a link to the paper, project page, or official blog.
+      placeholder: "Dreamer — https://arxiv.org/abs/1912.01603"
+    validations:
+      required: true
+  - type: input
+    id: nextstate
+    attributes:
+      label: Next state (the one thing that matters)
+      description: What does this system predict AS the next state? One phrase.
+      placeholder: "next categorical latent + reward + continue flag"
+    validations:
+      required: true
+  - type: dropdown
+    id: space
+    attributes:
+      label: Prediction space
+      options: [text, token, pixel, latent, abstract]
+    validations:
+      required: true
+  - type: dropdown
+    id: cond
+    attributes:
+      label: Conditioning
+      options:
+        - "observational (no actions)"
+        - "interventional (action-conditioned)"
+    validations:
+      required: true
+  - type: dropdown
+    id: group
+    attributes:
+      label: Lineage
+      options: [neuroscience, algorithmic-precursor, control, jepa, video, llm, survey]
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it belongs
+      description: One or two sentences — what's the contribution?
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I checked it isn't already in the list
+          required: true
+        - label: The link is a primary source (paper / project page / official blog)
+          required: true

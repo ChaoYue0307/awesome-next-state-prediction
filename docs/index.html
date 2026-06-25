@@ -14,6 +14,20 @@
 <meta name="twitter:image" content="https://chaoyue0307.github.io/awesome-next-state-prediction/assets/social-preview.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='none' stroke='%231D9E75' stroke-width='6'/><circle cx='50' cy='50' r='12' fill='%231D9E75'/></svg>">
 <link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Awesome Next-State Prediction",
+  "description": "A curated, opinionated map of world models — the systems that learn to predict the next state of the world, not just the next token.",
+  "url": "https://chaoyue0307.github.io/awesome-next-state-prediction/",
+  "keywords": ["world models", "next-state prediction", "model-based reinforcement learning", "JEPA", "Dreamer", "MuZero", "video world models", "self-supervised learning"],
+  "creator": { "@type": "Person", "name": "Chaoyue He" },
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "isAccessibleForFree": true,
+  "codeRepository": "https://github.com/ChaoYue0307/awesome-next-state-prediction"
+}
+</script>
 </head>
 <body>
 
@@ -34,7 +48,7 @@
 <header class="hero">
   <div class="container">
     <div class="badge-row">
-      <span class="pill"><span class="d" style="background:var(--teal)"></span>49 curated works</span>
+      <span class="pill"><span class="d" style="background:var(--teal)"></span>54 curated works</span>
       <span class="pill"><span class="d" style="background:var(--purple)"></span>5-axis framework</span>
       <span class="pill"><span class="d" style="background:var(--coral)"></span>1943 &#8594; 2026</span>
       <span class="pill"><span class="d" style="background:var(--blue)"></span>CC0 · PRs welcome</span>
@@ -79,7 +93,7 @@
   <div class="container">
     <div class="eyebrow">The big picture</div>
     <h2>The landscape map</h2>
-    <p class="lead">Every system, plotted on two axes: <strong>what it predicts</strong> (raw pixels &#8594; abstract latent) and <strong>whether it is action-conditioned</strong> (passive &#8594; interventional). Hover any point. Progress runs up-and-to-the-right.</p>
+    <p class="lead">Every system, plotted on two axes: <strong>what it predicts</strong> (raw pixels &#8594; abstract latent) and <strong>whether it is action-conditioned</strong> (passive &#8594; interventional). Hover any point — or click it to jump to its card. Progress runs up-and-to-the-right.</p>
     <div class="panel">
       <div class="chart-wrap"><canvas id="mapChart"></canvas></div>
       <div class="legend" id="mapLegend"></div>
@@ -103,7 +117,7 @@
   <div class="container">
     <div class="eyebrow">The evidence</div>
     <h2>The collection</h2>
-    <p class="lead">Forty-nine works, each tagged with the next-state it predicts — and a schematic thumbnail of its state turning into the next. Filter by lineage, prediction space, or conditioning; search; sort.</p>
+    <p class="lead">Fifty-four works, each tagged with the next-state it predicts — and a thumbnail (real figure for landmarks, schematic otherwise). Filter by lineage, prediction space, or conditioning; search (<kbd>/</kbd>); sort. Filters are saved to the URL, so any view is shareable.</p>
     <div class="filters" id="filters">
       <div class="row">
         <span class="label">Lineage</span>
