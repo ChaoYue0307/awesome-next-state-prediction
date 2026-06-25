@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awesome Next-State Prediction · World Models</title>
+<meta name="description" content="A curated, opinionated map of world models — the systems that learn to predict the next state of the world, not just the next token. From next-token to next-state.">
+<meta property="og:title" content="Awesome Next-State Prediction · World Models">
+<meta property="og:description" content="From next-token to next-state — a curated map of world models, organized by what each system treats as 'the next state'.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='none' stroke='%231D9E75' stroke-width='6'/><circle cx='50' cy='50' r='12' fill='%231D9E75'/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <span class="brand"><span class="dot"></span>next&#8209;state</span>
+    <a class="link" href="#thesis">Thesis</a>
+    <a class="link" href="#axes">Five Axes</a>
+    <a class="link" href="#map">Map</a>
+    <a class="link" href="#ladder">Ladder</a>
+    <a class="link" href="#collection">Collection</a>
+    <a class="link" href="#timeline">Timeline</a>
+    <a class="link" href="#frontiers">Frontiers</a>
+    <a class="link gh" href="https://github.com/ChaoYue0307/awesome-next-state">GitHub &#8599;</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="badge-row">
+      <span class="pill"><span class="d" style="background:var(--teal)"></span>40+ curated works</span>
+      <span class="pill"><span class="d" style="background:var(--purple)"></span>5-axis framework</span>
+      <span class="pill"><span class="d" style="background:var(--coral)"></span>1943 &#8594; 2026</span>
+      <span class="pill"><span class="d" style="background:var(--blue)"></span>CC0 · PRs welcome</span>
+    </div>
+    <h1>From next&#8209;token to <span class="grad">next&#8209;state</span></h1>
+    <p class="sub">A curated, opinionated map of <strong>world models</strong> — the systems that learn to predict the next <em>state of the world</em>, not just the next <em>word</em>. Every work is tagged by the one thing that matters: <strong>what it treats as the next state.</strong></p>
+    <div class="cta-row">
+      <a class="btn primary" href="#collection">Explore the collection</a>
+      <a class="btn ghost" href="#thesis">Read the thesis</a>
+      <a class="btn ghost" href="https://github.com/ChaoYue0307/awesome-next-state">Star on GitHub &#8599;</a>
+    </div>
+    <img class="hero-fig" src="assets/hero.svg" alt="From next-token prediction to next-state prediction">
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<section id="thesis">
+  <div class="container">
+    <div class="eyebrow">The thesis</div>
+    <h2>Two objectives, one symbol of difference</h2>
+    <p class="lead">An LLM predicts the next token. A world model predicts the next state — given what you <em>do</em>. Three things change, and each is load-bearing.</p>
+    <div class="eqn">
+      <div class="col"><div class="k">Next-token · LLM</div>P(x&#8348;&#8330;&#8321; | x&#8321;:&#8348;)</div>
+      <div class="arrow">&#10230;</div>
+      <div class="col"><div class="k">Next-state · world model</div>P(s&#8348;&#8330;&#8321; | s&#8348;, a&#8348;)</div>
+    </div>
+    <p class="lead">The variable moves from a <strong>token</strong> to a <strong>state</strong>; the conditioning gains an <strong>action</strong> a&#8348; — turning prediction from <em>observational</em> (what usually follows) into <em>interventional</em> (the consequence of an action, Pearl's <span style="font-family:var(--mono)">do(&middot;)</span>); and the prediction <strong>space</strong> becomes a choice. Remove the action and next-state prediction collapses back into next-token prediction.</p>
+    <div class="callout">One sentence to hold the whole field: <em>an LLM models the text <u>about</u> the world; a world model models the world's dynamics <u>under your actions</u> — and a good-enough text predictor grows a partial world model inside it anyway, bounded by whatever humans bothered to write down.</em></div>
+  </div>
+</section>
+
+<section id="axes">
+  <div class="container">
+    <div class="eyebrow">The lens</div>
+    <h2>The Five Axes of next-state prediction</h2>
+    <p class="lead">Don't read this field as two camps. Read it as a design space. Place any system on these five axes and you understand it — and exactly how it differs from an LLM.</p>
+    <div class="axes" id="axes-grid"></div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="container">
+    <div class="eyebrow">The big picture</div>
+    <h2>The landscape map</h2>
+    <p class="lead">Every system, plotted on two axes: <strong>what it predicts</strong> (raw pixels &#8594; abstract latent) and <strong>whether it is action-conditioned</strong> (passive &#8594; interventional). Hover any point. Progress runs up-and-to-the-right.</p>
+    <div class="panel">
+      <div class="chart-wrap"><canvas id="mapChart"></canvas></div>
+      <div class="legend" id="mapLegend"></div>
+    </div>
+  </div>
+</section>
+
+<section id="ladder">
+  <div class="container">
+    <div class="eyebrow">A capability ladder</div>
+    <h2>The Next-State Ladder</h2>
+    <p class="lead">How far does &ldquo;predict the next ___&rdquo; reach? Each rung adds one thing: a latent state, a richer observation, an action, abstraction, then generality.</p>
+    <figure class="figcard">
+      <img src="assets/ladder.svg" alt="The Next-State Ladder from L0 to L5">
+      <figcaption>L0 next token &#183; L1 token implying a latent world &#183; L2 next frame (passive) &#183; L3 frame given an action &#183; L4 plannable latent &#183; L5 abstract, general, real-time</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="collection">
+  <div class="container">
+    <div class="eyebrow">The evidence</div>
+    <h2>The collection</h2>
+    <p class="lead">Forty-plus works, each tagged with the next-state it predicts. Filter by lineage, prediction space, or conditioning; search; sort.</p>
+    <div class="filters" id="filters">
+      <div class="row">
+        <span class="label">Lineage</span>
+        <span id="group-chips"></span>
+      </div>
+      <div class="row">
+        <span class="label">Space</span>
+        <span id="space-chips"></span>
+      </div>
+      <div class="row">
+        <span class="label">Conditioning</span>
+        <span id="cond-chips"></span>
+      </div>
+      <div class="row">
+        <input class="search" id="search" type="text" placeholder="Search works, authors, ideas…">
+        <select class="sort" id="sort">
+          <option value="year-desc">Newest first</option>
+          <option value="year-asc">Oldest first</option>
+          <option value="ladder-desc">Ladder: high &#8594; low</option>
+          <option value="name-asc">A &#8594; Z</option>
+        </select>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="table">
+  <div class="container">
+    <div class="eyebrow">Side by side</div>
+    <h2>Comparison table</h2>
+    <p class="lead">The same works on the Five Axes. Click any header to sort.</p>
+    <div class="tablewrap"><table id="cmp"><thead></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="container">
+    <div class="eyebrow">The arc</div>
+    <h2>Timeline</h2>
+    <p class="lead">Eight decades from Craik's mental models to real-time interactive world models, by lineage.</p>
+    <div class="panel">
+      <div class="chart-wrap timeline"><canvas id="timeChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section id="frontiers">
+  <div class="container">
+    <div class="eyebrow">What's unsolved</div>
+    <h2>Open problems &amp; frontiers</h2>
+    <p class="lead">The questions that decide whether world models become the substrate of general agents.</p>
+    <div class="front">
+      <div class="item"><h3>Pixels vs. abstraction</h3><p>JEPA says reconstruction is a waste; DIAMOND shows visual detail matters for control. Nobody knows the right altitude to predict at — and it may be task-dependent. The field's central schism.</p></div>
+      <div class="item"><h3>Long-horizon consistency</h3><p>Generative world models drift and hallucinate over long rollouts. Genie 3 holds minutes; agents need hours, with object permanence and stable physics.</p></div>
+      <div class="item"><h3>Compounding error</h3><p>Autoregressive rollout amplifies small per-step errors. Planning depth is bounded by where the model stops being trustworthy.</p></div>
+      <div class="item"><h3>Calibrated uncertainty</h3><p>The future branches. Does the model <em>know</em> it's uncertain, and can a planner use that? Diffusion and energy models are bets; calibration is open.</p></div>
+      <div class="item"><h3>Action grounding at scale</h3><p>The web is full of un-actioned video. Genie's latent actions and V-JEPA 2-AC's few-hour tuning are early answers to &ldquo;how do we add the action axis cheaply?&rdquo;</p></div>
+      <div class="item"><h3>Temporal abstraction</h3><p>Predicting every frame is the wrong granularity. We want the <em>consequence</em> of an action that unfolds over many steps — open since the options framework.</p></div>
+      <div class="item"><h3>Evaluation</h3><p>What is the loss for a <em>good</em> world model? Pixel MSE rewards the wrong thing; &ldquo;useful for planning&rdquo; is the real metric but hard to measure.</p></div>
+      <div class="item"><h3>The text ceiling</h3><p>How far does next-token prediction's implicit world model actually reach — and where must sensorimotor experience take over?</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span class="quote">&ldquo;Next-token prediction gave us language. Next-state prediction is the bet that it gives us agency.&rdquo;</span>
+    <span>Curated by the community &#183; <a href="https://github.com/ChaoYue0307/awesome-next-state">GitHub</a> &#183; CC0 1.0</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="works.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

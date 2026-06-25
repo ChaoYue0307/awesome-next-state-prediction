@@ -1,0 +1,44 @@
+<svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect x="2" y="2" width="1196" height="336" rx="22" fill="#0E1117" stroke="#2A3038" stroke-width="2"/>
+  <text x="50" y="74" fill="#E6EDF3" font-size="34" font-weight="700">From next&#8209;token to next&#8209;state</text>
+  <text x="50" y="106" fill="#9DA7B3" font-size="17">the shift from language models to world models — predicting the next state of the world, not just the next word</text>
+
+  <!-- left pill: LLM -->
+  <rect x="50" y="150" width="372" height="96" rx="16" fill="#161B22" stroke="#3A4048" stroke-width="1.5"/>
+  <text x="72" y="186" fill="#B4B2A9" font-size="14" letter-spacing="1.5">NEXT&#8209;TOKEN PREDICTION · LLM</text>
+  <text x="72" y="224" fill="#E6EDF3" font-size="24" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P(x&#8348;&#8330;&#8321; | x&#8321;:&#8348;)</text>
+
+  <!-- arrow + action -->
+  <rect x="468" y="158" width="118" height="30" rx="15" fill="#2A140C" stroke="#D85A30" stroke-width="1.5"/>
+  <text x="527" y="178" fill="#F0997B" font-size="15" text-anchor="middle" font-weight="600">+ action a&#8348;</text>
+  <line x1="440" y1="198" x2="612" y2="198" stroke="#6E7681" stroke-width="2.5"/>
+  <path d="M606 191 L620 198 L606 205 Z" fill="#6E7681"/>
+  <text x="527" y="232" fill="#6E7681" font-size="12.5" text-anchor="middle">the load&#8209;bearing difference</text>
+
+  <!-- right pill: world model -->
+  <rect x="636" y="150" width="392" height="96" rx="16" fill="#10211B" stroke="#1D9E75" stroke-width="1.8"/>
+  <text x="658" y="186" fill="#5DCAA5" font-size="14" letter-spacing="1.5">NEXT&#8209;STATE PREDICTION · WORLD MODEL</text>
+  <text x="658" y="224" fill="#E6EDF3" font-size="24" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P(s&#8348;&#8330;&#8321; | s&#8348;, a&#8348;)</text>
+
+  <!-- world glyph -->
+  <circle cx="1110" cy="198" r="46" fill="none" stroke="#1D9E75" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="1110" cy="198" r="30" fill="none" stroke="#5DCAA5" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="1110" cy="198" r="11" fill="#1D9E75"/>
+  <circle cx="1156" cy="198" r="4" fill="#5DCAA5"/>
+  <circle cx="1110" cy="152" r="3.5" fill="#9FE1CB"/>
+
+  <!-- five axis chips -->
+  <g font-size="14" font-weight="600" text-anchor="middle">
+    <rect x="50" y="282" width="196" height="34" rx="17" fill="#161B22" stroke="#534AB7" stroke-width="1.3"/>
+    <text x="148" y="304" fill="#AFA9EC">1 · state</text>
+    <rect x="256" y="282" width="196" height="34" rx="17" fill="#161B22" stroke="#1D9E75" stroke-width="1.3"/>
+    <text x="354" y="304" fill="#5DCAA5">2 · action</text>
+    <rect x="462" y="282" width="196" height="34" rx="17" fill="#161B22" stroke="#D85A30" stroke-width="1.3"/>
+    <text x="560" y="304" fill="#F0997B">3 · space</text>
+    <rect x="668" y="282" width="196" height="34" rx="17" fill="#161B22" stroke="#378ADD" stroke-width="1.3"/>
+    <text x="766" y="304" fill="#85B7EB">4 · uncertainty</text>
+    <rect x="874" y="282" width="196" height="34" rx="17" fill="#161B22" stroke="#EF9F27" stroke-width="1.3"/>
+    <text x="972" y="304" fill="#FAC775">5 · objective</text>
+  </g>
+  <text x="1086" y="305" fill="#6E7681" font-size="13" text-anchor="start">the five axes</text>
+</svg>

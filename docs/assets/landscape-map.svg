@@ -1,0 +1,63 @@
+<svg viewBox="0 0 1000 660" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect x="2" y="2" width="996" height="656" rx="20" fill="#0E1117" stroke="#2A3038" stroke-width="2"/>
+  <text x="40" y="46" fill="#E6EDF3" font-size="22" font-weight="700">The landscape of next&#8209;state prediction</text>
+  <text x="40" y="70" fill="#9DA7B3" font-size="13.5">prediction space (what is predicted)  ×  conditioning (passive vs. action&#8209;driven)</text>
+
+  <!-- cells -->
+  <rect x="100" y="100" width="425" height="235" rx="14" fill="#1E1410" stroke="#D85A30" stroke-width="1.4" opacity="0.95"/>
+  <rect x="535" y="100" width="425" height="235" rx="14" fill="#10211B" stroke="#1D9E75" stroke-width="1.4" opacity="0.95"/>
+  <rect x="100" y="345" width="425" height="235" rx="14" fill="#1E1A10" stroke="#EF9F27" stroke-width="1.4" opacity="0.95"/>
+  <rect x="535" y="345" width="425" height="235" rx="14" fill="#15131F" stroke="#7F77DD" stroke-width="1.4" opacity="0.95"/>
+
+  <!-- TL: pixel + action -->
+  <text x="120" y="135" fill="#F0997B" font-size="16" font-weight="700">Generative game &amp; video worlds</text>
+  <text x="120" y="156" fill="#9DA7B3" font-size="12.5">model the world by generating every pixel — controllable, vivid, costly</text>
+  <g font-size="12.5" font-weight="500" text-anchor="middle" fill="#F0997B">
+    <rect x="120" y="170" width="92" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="166" y="187">GameNGen</text>
+    <rect x="222" y="170" width="84" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="264" y="187">DIAMOND</text>
+    <rect x="316" y="170" width="64" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="348" y="187">Genie</text>
+    <rect x="390" y="170" width="78" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="429" y="187">Genie 3</text>
+    <rect x="120" y="204" width="74" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="157" y="221">UniSim</text>
+    <rect x="204" y="204" width="74" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="241" y="221">Cosmos</text>
+    <rect x="288" y="204" width="62" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="319" y="221">GAIA</text>
+    <rect x="360" y="204" width="62" height="26" rx="13" fill="#0E1117" stroke="#993C1D"/><text x="391" y="221">Oasis</text>
+  </g>
+
+  <!-- TR: abstract/latent + action -->
+  <text x="555" y="135" fill="#5DCAA5" font-size="16" font-weight="700">Planning&#8209;first world models</text>
+  <text x="555" y="156" fill="#9DA7B3" font-size="12.5">model only what control needs — plan or dream inside the latent</text>
+  <g font-size="12.5" font-weight="500" text-anchor="middle" fill="#5DCAA5">
+    <rect x="555" y="170" width="76" height="26" rx="13" fill="#0E1117" stroke="#0F6E56"/><text x="593" y="187">MuZero</text>
+    <rect x="641" y="170" width="86" height="26" rx="13" fill="#0E1117" stroke="#0F6E56"/><text x="684" y="187">TD&#8209;MPC2</text>
+    <rect x="737" y="170" width="98" height="26" rx="13" fill="#0E1117" stroke="#0F6E56"/><text x="786" y="187">DreamerV3</text>
+    <rect x="555" y="204" width="54" height="26" rx="13" fill="#0E1117" stroke="#0F6E56"/><text x="582" y="221">IRIS</text>
+    <rect x="619" y="204" width="110" height="26" rx="13" fill="#0E1117" stroke="#534AB7"/><text x="674" y="221" fill="#AFA9EC">V&#8209;JEPA 2&#8209;AC</text>
+    <rect x="739" y="204" width="84" height="26" rx="13" fill="#0E1117" stroke="#185FA5"/><text x="781" y="221" fill="#85B7EB">Dynalang</text>
+  </g>
+
+  <!-- BL: pixel + observational -->
+  <text x="120" y="380" fill="#FAC775" font-size="16" font-weight="700">Video as a 'world simulator'</text>
+  <text x="120" y="401" fill="#9DA7B3" font-size="12.5">stunning physics by scale — but no native action channel yet</text>
+  <g font-size="12.5" font-weight="500" text-anchor="middle" fill="#FAC775">
+    <rect x="120" y="418" width="58" height="26" rx="13" fill="#0E1117" stroke="#854F0B"/><text x="149" y="435">Sora</text>
+  </g>
+  <text x="190" y="435" fill="#6E7681" font-size="12.5">passive video generation — add an action and it moves up</text>
+
+  <!-- BR: latent/text + observational -->
+  <text x="555" y="380" fill="#AFA9EC" font-size="16" font-weight="700">Representation learners &amp; LLMs</text>
+  <text x="555" y="401" fill="#9DA7B3" font-size="12.5">predict representations or tokens — where LLMs live, and can grow a world model</text>
+  <g font-size="12.5" font-weight="500" text-anchor="middle" fill="#AFA9EC">
+    <rect x="555" y="418" width="66" height="26" rx="13" fill="#0E1117" stroke="#534AB7"/><text x="588" y="435">I&#8209;JEPA</text>
+    <rect x="631" y="418" width="70" height="26" rx="13" fill="#0E1117" stroke="#534AB7"/><text x="666" y="435">V&#8209;JEPA</text>
+    <rect x="711" y="418" width="52" height="26" rx="13" fill="#0E1117" stroke="#534AB7"/><text x="737" y="435">CPC</text>
+    <rect x="555" y="452" width="104" height="26" rx="13" fill="#0E1117" stroke="#185FA5"/><text x="607" y="469" fill="#85B7EB">Othello&#8209;GPT</text>
+    <rect x="669" y="452" width="116" height="26" rx="13" fill="#0E1117" stroke="#185FA5"/><text x="727" y="469" fill="#85B7EB">Space &amp; Time</text>
+  </g>
+
+  <!-- axes -->
+  <g transform="translate(60,500) rotate(-90)">
+    <text x="0" y="0" fill="#6E7681" font-size="13" letter-spacing="2">OBSERVATIONAL  &#10230;  ACTION&#8209;CONDITIONED</text>
+  </g>
+  <text x="530" y="612" fill="#6E7681" font-size="13" letter-spacing="2" text-anchor="middle">RAW PIXELS / OBSERVATION  &#10230;  ABSTRACT / LATENT (VALUE&#8209;EQUIVALENT)</text>
+  <text x="530" y="640" fill="#8A929C" font-size="13" text-anchor="middle" font-style="italic">progress runs up&#8209;and&#8209;to&#8209;the&#8209;right: from predicting observations &#8594; predicting abstract states you can plan with</text>
+</svg>
